@@ -6,10 +6,14 @@
 }
 
 :root {
-  --baseBackground: #fff;
-  --baseColor: #6730ec;
+  --baseBackground: #300065;
+  --baseColor: #e8e8e8;
   --lightGray: #f8f9fe;
   --text: #6f717e;
-  --shockOne: #7984ee;
-  --shockTwo: #a9d2ff;
+  --shockOne: #7a08fa;
+  --shockTwo: #d189ff;
+}
+
+body {
+  background-color: var(--baseBackground);
 }

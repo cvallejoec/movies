@@ -24,8 +24,11 @@ const Movie = () => {
   }, []);
 
   return (
-    <div className="global__wrapper">
-      <h2 className="global__title">Películas</h2>
+    <div className="global__wrapper movie">
+      <div className="global__center--vertical movie__header">
+        <h2 className="global__title">Películas</h2>
+        <button className="global__button">Crear Película</button>
+      </div>
       <div className="global__grid">
         {loading ? (
           <h2>Loading...</h2>

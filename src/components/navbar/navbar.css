@@ -1,6 +1,6 @@
 .navbar {
   height: 64px;
-  background-color: var(--lightGray);
+  background-color: var(--shockTwo);
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -11,4 +11,5 @@
   font-size: 18px;
   margin: 0px 10px;
   cursor: pointer;
+  color: var(--baseBackground);
 }

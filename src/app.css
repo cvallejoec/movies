@@ -2,6 +2,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.global__center--vertical {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .global__title {
@@ -19,6 +26,23 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
+}
+
+.global__button {
+  border: none;
+  padding: 10px 30px;
+  margin: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition: all 0.1s ease-in;
+}
+
+.global__button:hover {
+  background-color: transparent;
+  color: var(--baseColor);
+  border: 1px solid var(--baseColor);
 }
 
 @media screen and (min-width: 480px) {
