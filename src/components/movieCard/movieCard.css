@@ -12,6 +12,11 @@
   font-weight: 600;
 }
 
+.movie-card__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 .movie-card__subtitle {
   color: var(--lightGray);
   font-weight: 200;
@@ -19,7 +24,7 @@
 
 .movie-card p {
   color: var(--lightGray);
-  font-weight: 300;
+  font-weight: 400;
   margin: 10px 0;
 }
 
@@ -27,16 +32,4 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.button__open {
-  background-color: var(--baseColor);
-  border: none;
-  color: var(--baseBackground);
-  border-radius: 8px;
-  /* padding: 20px; */
-  width: 50px;
-  height: 50px;
-  display: block;
-  user-select: none;
 }

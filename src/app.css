@@ -1,6 +1,7 @@
 .global__center {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 
 .global__title {
@@ -25,9 +26,6 @@
     max-width: 1440px;
     margin: auto;
   }
-  /* .global__title {
-    font-size: 32px;
-  } */
 }
 
 @media screen and (min-width: 720px) {
