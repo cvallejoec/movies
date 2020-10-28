@@ -24,23 +24,25 @@ const Movie = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Movies</h2>
-      {loading ? (
-        <h2>Loading...</h2>
-      ) : !movies.length ? (
-        <h2>Aún no tienes películas</h2>
-      ) : (
-        movies.map((movie) => (
-          <MovieCard
-            key={movie.movie_id}
-            movieName={movie.movie_name}
-            movieDuration={movie.movie_duration}
-            movieGenre={movie.movie_genre}
-            movieSynopsis={movie.movie_synopsis}
-          />
-        ))
-      )}
+    <div className="global__wrapper">
+      <h2 className="global__title">Películas</h2>
+      <div className="global__grid">
+        {loading ? (
+          <h2>Loading...</h2>
+        ) : !movies.length ? (
+          <h2>Aún no tienes películas</h2>
+        ) : (
+          movies.map((movie) => (
+            <MovieCard
+              key={movie.movie_id}
+              movieName={movie.movie_name}
+              movieDuration={movie.movie_duration}
+              movieGenre={movie.movie_genre}
+              movieSynopsis={movie.movie_synopsis}
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 };

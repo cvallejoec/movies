@@ -24,8 +24,8 @@ const Actor = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Actors</h2>
+    <div className="global__wrapper">
+      <h2 className="global__title">Actors</h2>
       {loading ? (
         <h2>Loading...</h2>
       ) : !actors.length ? (

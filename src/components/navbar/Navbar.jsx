@@ -4,11 +4,15 @@ import './navbar.css';
 
 const Navbar = () => {
   return (
-    <div>
-      <Link to="/movies">Movies</Link>
-      <Link to="/actors">Actors</Link>
-      <Link to="/create-movie">Create Movie</Link>
-      <Link to="/create-actor">Create Actor</Link>
+    <div className="navbar">
+      <Link to="/movies" className="navbar__menu">
+        Películas
+      </Link>
+      <Link to="/actors" className="navbar__menu">
+        Actores
+      </Link>
+      {/* <Link to="/create-movie">Create Movie</Link>
+      <Link to="/create-actor">Create Actor</Link> */}
     </div>
   );
 };

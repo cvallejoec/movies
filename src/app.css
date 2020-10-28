@@ -1,0 +1,43 @@
+.global__center {
+  display: flex;
+  justify-content: space-between;
+}
+
+.global__title {
+  color: var(--baseColor);
+  font-weight: 700;
+  font-size: 38px;
+  margin: 20px 0;
+}
+
+.global__wrapper {
+  padding: 0 30px;
+}
+
+.global__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+@media screen and (min-width: 480px) {
+  .global__wrapper {
+    max-width: 1440px;
+    margin: auto;
+  }
+  /* .global__title {
+    font-size: 32px;
+  } */
+}
+
+@media screen and (min-width: 720px) {
+  .global__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .global__grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}

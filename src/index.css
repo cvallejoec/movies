@@ -1,4 +1,15 @@
 * {
   margin: 0;
-  /* background-color: red; */
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  color: black;
+}
+
+:root {
+  --baseBackground: #fff;
+  --baseColor: #6730ec;
+  --lightGray: #f8f9fe;
+  --text: #6f717e;
+  --shockOne: #7984ee;
+  --shockTwo: #a9d2ff;
 }

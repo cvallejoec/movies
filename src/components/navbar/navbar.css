@@ -1,0 +1,14 @@
+.navbar {
+  height: 64px;
+  background-color: var(--lightGray);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px 100px;
+}
+
+.navbar__menu {
+  font-size: 18px;
+  margin: 0px 10px;
+  cursor: pointer;
+}
