@@ -5,13 +5,17 @@ import './createMovie.css';
 import Global from '../../Global';
 
 const CreateMovie = () => {
+  // Formulario
   const [error, setError] = useState(false);
   const [name, setName] = useState('');
   const [duration, setDuration] = useState('');
   const [genre, setGenre] = useState('');
   const [synopsis, setSynopsis] = useState('');
   const [options, setOptions] = useState();
+  // Actores
   const [selectedActors, setSelectedActors] = useState([]);
+  const [toAddActors, setToAddActors] = useState([]);
+  const [toRemoveActors, setToRemoveActors] = useState([]);
 
   const handleForm = (e) => {
     e.preventDefault();
@@ -27,8 +31,15 @@ const CreateMovie = () => {
       axios
         .post(Global.url + '/api/movie', movie)
         .then((res) => {
-          const movieId = res.data.data.insertId;
-          console.log(movieId);
+          return res.data.data.insertId;
+        })
+        .then((movieId) => {
+          toAddActors.map((toAddActor) => {
+            return axios.post(Global.url + '/api/movie/link', {
+              movieId,
+              actorId: toAddActor.actorId,
+            });
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -43,8 +54,11 @@ const CreateMovie = () => {
   const cleanForm = () => {
     setName('');
     setDuration('');
-    setGenre('Escoger');
+    setGenre('');
     setSynopsis('');
+    setSelectedActors([]);
+    setToAddActors([]);
+    setToRemoveActors([]);
   };
 
   useEffect(() => {
@@ -83,6 +97,7 @@ const CreateMovie = () => {
           actorName,
         };
         setSelectedActors([...selectedActors, actor]);
+        setToAddActors([...toAddActors, actor]);
       }
     }
   };
@@ -93,6 +108,10 @@ const CreateMovie = () => {
       (selectedActor) => selectedActor.actorName !== actorName
     );
     setSelectedActors(newActors);
+    const newActorsToRemove = toRemoveActors.filter(
+      (selectedActor) => selectedActor.actorName !== actorName
+    );
+    setToRemoveActors(newActorsToRemove);
   };
 
   return (
@@ -163,7 +182,7 @@ const CreateMovie = () => {
               ))}
           </div>
         </div>
-        <button type="submit" onClick={(e) => handleForm(e.target)}>
+        <button type="submit" onClick={(e) => handleForm(e)}>
           Guardar
         </button>
       </form>
