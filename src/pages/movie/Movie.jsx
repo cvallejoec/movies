@@ -4,8 +4,11 @@ import './movie.css';
 
 import Global from '../../Global';
 import MovieCard from '../../components/movieCard/MovieCard.jsx';
+import CreateMovie from '../../components/createMovie/CreateMovie.jsx';
+import Modal from '../../components/modal/Modal.jsx';
 
 const Movie = () => {
+  const [isVisible, setIsVisible] = useState(false);
   const [movies, setMovies] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -23,11 +26,22 @@ const Movie = () => {
       });
   }, []);
 
+  const toggleModal = () => {
+    setIsVisible(!isVisible);
+  };
+
   return (
     <div className="global__wrapper movie">
+      {isVisible && (
+        <Modal isVisible={isVisible} setIsVisible={setIsVisible}>
+          <CreateMovie />
+        </Modal>
+      )}
       <div className="global__center--vertical movie__header">
         <h2 className="global__title">Películas</h2>
-        <button className="global__button">Crear Película</button>
+        <button className="global__button" onClick={toggleModal}>
+          Crear Película
+        </button>
       </div>
       <div className="global__grid">
         {loading ? (

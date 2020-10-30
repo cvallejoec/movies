@@ -25,9 +25,6 @@ const Modal = ({ children, isVisible, setIsVisible }) => {
             : container + ' modal__container--closed'
         }
       >
-        {/* <h2>Modal</h2>
-        <p>Estás apunto de crear una ventana muy chévere</p>
-        <p>Te gustó</p> */}
         {children}
         <div className="modal__buttons" onClick={toggleModal}>
           <IconButton>

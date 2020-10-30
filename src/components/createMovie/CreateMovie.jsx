@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './createMovie.css';
 
@@ -8,13 +8,15 @@ const CreateMovie = () => {
   const [error, setError] = useState(false);
   const [name, setName] = useState('');
   const [duration, setDuration] = useState('');
-  const [genre, setGenre] = useState('Escoger');
+  const [genre, setGenre] = useState('');
   const [synopsis, setSynopsis] = useState('');
+  const [options, setOptions] = useState();
+  const [selectedActors, setSelectedActors] = useState([]);
 
   const handleForm = (e) => {
     e.preventDefault();
     setError(false);
-    if (name && duration && genre != 'Escoger' && synopsis) {
+    if (name && duration && genre != '' && synopsis) {
       const movie = {
         movieName: name,
         movieDuration: duration,
@@ -43,6 +45,54 @@ const CreateMovie = () => {
     setDuration('');
     setGenre('Escoger');
     setSynopsis('');
+  };
+
+  useEffect(() => {
+    axios
+      .get(Global.url + '/api/actor')
+      .then((res) => {
+        setOptions(
+          res.data.data.map((actor) => (
+            <option
+              key={actor.actor_id}
+              value={`${actor.actor_id},${actor.actor_name}`}
+            >
+              {actor.actor_name}
+            </option>
+          ))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handleActor = (e) => {
+    // Verifica si no seleccionó el Select por defecto
+    if (e.target.value.length > 0) {
+      const selectedActorInfo = e.target.value.split(',');
+      const actorId = selectedActorInfo[0];
+      const actorName = selectedActorInfo[1];
+      const foundActor = selectedActors.find(
+        (selectedActor) => selectedActor.actorId === actorId
+      );
+      // Verifica que no esté ya ese actor en la lista
+      if (!foundActor) {
+        const actor = {
+          actorId,
+          actorName,
+        };
+        setSelectedActors([...selectedActors, actor]);
+      }
+    }
+  };
+
+  const removeActor = (e) => {
+    const actorName = e.target.innerHTML;
+    const newActors = selectedActors.filter(
+      (selectedActor) => selectedActor.actorName !== actorName
+    );
+    setSelectedActors(newActors);
   };
 
   return (
@@ -78,7 +128,7 @@ const CreateMovie = () => {
             name="genre"
             onChange={(e) => setGenre(e.target.value)}
           >
-            <option value="Escoger" defaultValue>
+            <option value="" defaultValue>
               Escoge una
             </option>
             <option value="Animadas">Animadas</option>
@@ -97,7 +147,23 @@ const CreateMovie = () => {
             value={synopsis}
           />
         </div>
-        <button type="submit" onClick={(e) => handleForm(e)}>
+        <div>
+          <label>Actores:</label>
+          <select onChange={(e) => handleActor(e)}>
+            <option value="">Escoge un actor</option>
+            {options && options}
+          </select>
+          <div>
+            {selectedActors &&
+              selectedActors.length > 0 &&
+              selectedActors.map((selectedActor) => (
+                <p key={selectedActor.actorId} onClick={(e) => removeActor(e)}>
+                  {selectedActor.actorName}
+                </p>
+              ))}
+          </div>
+        </div>
+        <button type="submit" onClick={(e) => handleForm(e.target)}>
           Guardar
         </button>
       </form>

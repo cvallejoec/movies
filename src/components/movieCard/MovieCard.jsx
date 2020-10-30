@@ -5,7 +5,7 @@ import CreateMovie from '../createMovie/CreateMovie.jsx';
 import { IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InfoIcon from '@material-ui/icons/Info';
-import Modal from '../modal/Modal.jsx';
+// import Modal from '../modal/Modal.jsx';
 
 const MovieCard = ({ movieName, movieDuration, movieGenre, movieSynopsis }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,9 +16,9 @@ const MovieCard = ({ movieName, movieDuration, movieGenre, movieSynopsis }) => {
 
   return (
     <div className="movie-card">
-      <Modal isVisible={isVisible} setIsVisible={setIsVisible}>
+      {/* <Modal isVisible={isVisible} setIsVisible={setIsVisible}>
         <CreateMovie />
-      </Modal>
+      </Modal> */}
       <h3 className="movie-card__title">{movieName}</h3>
       <div className="movie-card__wrapper">
         <div className="movie-card__description">
