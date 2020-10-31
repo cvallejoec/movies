@@ -13,6 +13,10 @@ const Movie = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = () => {
     setLoading(true);
     axios
       .get(Global.url + '/api/movie')
@@ -24,7 +28,7 @@ const Movie = () => {
         setLoading(false);
         console.log(err);
       });
-  }, []);
+  };
 
   const toggleModal = () => {
     setIsVisible(!isVisible);
@@ -34,7 +38,7 @@ const Movie = () => {
     <div className="global__wrapper movie">
       {isVisible && (
         <Modal isVisible={isVisible} setIsVisible={setIsVisible}>
-          <CreateMovie />
+          <CreateMovie setIsVisible={setIsVisible} loadData={loadData} />
         </Modal>
       )}
       <div className="global__center--vertical movie__header">
@@ -51,6 +55,7 @@ const Movie = () => {
         ) : (
           movies.map((movie) => (
             <MovieCard
+              loadData={loadData}
               key={movie.movie_id}
               movieId={movie.movie_id}
               movieName={movie.movie_name}

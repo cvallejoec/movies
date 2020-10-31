@@ -9,6 +9,7 @@ import CreateMovie from '../createMovie/CreateMovie.jsx';
 import Modal from '../modal/Modal.jsx';
 
 const MovieCard = ({
+  loadData,
   movieId,
   movieName,
   movieDuration,
@@ -34,7 +35,7 @@ const MovieCard = ({
     <div className="movie-card">
       {isVisibleEdit && (
         <Modal isVisible={isVisibleEdit} setIsVisible={setIsVisibleEdit}>
-          <CreateMovie />
+          <CreateMovie setIsVisible={setIsVisibleEdit} loadData={loadData} />
         </Modal>
       )}
       {isVisibleView && (

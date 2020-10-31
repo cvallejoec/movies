@@ -4,7 +4,7 @@ import './createMovie.css';
 
 import Global from '../../Global';
 
-const CreateMovie = () => {
+const CreateMovie = ({ setIsVisible, loadData }) => {
   // Card
   const [isNew, setIsNew] = useState(false);
   const [movieId, setMovieId] = useState(localStorage.getItem('movieId'));
@@ -89,6 +89,7 @@ const CreateMovie = () => {
               actorId: toRemoveActor[0].actorId,
             });
           });
+          closeModal();
         })
         .catch((err) => {
           console.log(err);
@@ -168,8 +169,13 @@ const CreateMovie = () => {
     e.preventDefault();
     axios
       .delete(`${Global.url}/api/movie/${movieId}`)
-      .then((res) => console.log(res))
+      .then((res) => closeModal())
       .catch((err) => console.log(err));
+  };
+
+  const closeModal = () => {
+    loadData();
+    setIsVisible(false);
   };
 
   return (
