@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { storage } from '../../firebase/index';
 import axios from 'axios';
 import './createActor.css';
@@ -7,10 +7,36 @@ import Global from '../../Global';
 
 const CreateActor = ({ setIsVisible, loadData }) => {
   const [error, setError] = useState(false);
+  const [actorId, setActorId] = useState(localStorage.getItem('actorId'));
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState('');
+
+  useEffect(() => {
+    getActor();
+
+    return () => {
+      localStorage.removeItem('actorId');
+    };
+  }, []);
+
+  const getActor = () => {
+    if (actorId) {
+      axios
+        .get(`${Global.url}/api/actor/${actorId}`)
+        .then((res) => {
+          // console.log(res.data.data[0]);
+          const actor = res.data.data[0];
+          setName(actor.actor_name);
+          setAge(actor.actor_age);
+          setUrl(actor.actor_img);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   const submitForm = (e) => {
     console.log(e);
@@ -50,6 +76,7 @@ const CreateActor = ({ setIsVisible, loadData }) => {
   const handleForm = (url) => {
     if (name && age && url) {
       const actor = {
+        actorId,
         actorName: name,
         actorAge: age,
         actorImg: url,
@@ -82,8 +109,8 @@ const CreateActor = ({ setIsVisible, loadData }) => {
   };
 
   return (
-    <div>
-      <h2>Nuevo Actor</h2>
+    <div className="create-actor">
+      {!actorId ? <h2>Nuevo Actor</h2> : <h2>Editar Actor</h2>}
       <form>
         <div>
           <label htmlFor="name">Nombre:</label>
@@ -108,7 +135,7 @@ const CreateActor = ({ setIsVisible, loadData }) => {
         <div>
           <label htmlFor="image">Foto:</label>
           <input type="file" onChange={handleChange} />
-          {/* {url && <img src={url} alt="actor-image" width="100" />} */}
+          {url && <img src={url} alt="actor-image" width="100" />}
         </div>
         <button type="submit" onClick={(e) => submitForm(e)}>
           Guardar

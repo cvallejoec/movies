@@ -54,6 +54,7 @@ const Actor = () => {
           actors.map((actor) => (
             <ActorCard
               key={actor.actor_id}
+              actorId={actor.actor_id}
               actorName={actor.actor_name}
               actorAge={actor.actor_age}
               actorImg={actor.actor_img}
