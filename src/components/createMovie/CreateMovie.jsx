@@ -69,21 +69,23 @@ const CreateMovie = () => {
       axios
         .post(Global.url + '/api/movie', movie)
         .then((res) => {
-          setMovieId(res.data.data.insertId);
+          if (res.data.data.insertId) {
+            localStorage.setItem('movieId', res.data.data.insertId);
+            setMovieId(localStorage.getItem('movieId'));
+          }
         })
         .then(() => {
           toAddActors.map((toAddActor) => {
             return axios.post(Global.url + '/api/movie/link', {
-              movieId,
+              movieId: localStorage.getItem('movieId'),
               actorId: toAddActor.actorId,
             });
           });
-          return movieId;
         })
         .then(() => {
           toRemoveActors.map((toRemoveActor) => {
             return axios.post(Global.url + '/api/movie/unLink', {
-              movieId,
+              movieId: localStorage.getItem('movieId'),
               actorId: toRemoveActor[0].actorId,
             });
           });
@@ -160,9 +162,6 @@ const CreateMovie = () => {
       (selectedActor) => selectedActor.actorName !== actorName
     );
     setSelectedActors(newActors);
-    // const newActorsToRemove = toRemoveActors.filter(
-    //   (selectedActor) => selectedActor.actorName !== actorName
-    // );
   };
 
   return (
