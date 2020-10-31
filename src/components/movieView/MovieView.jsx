@@ -22,6 +22,10 @@ const MovieView = () => {
       .catch((err) => {
         console.log(err);
       });
+
+    return () => {
+      localStorage.removeItem('movieId');
+    };
   }, []);
 
   return movie ? (

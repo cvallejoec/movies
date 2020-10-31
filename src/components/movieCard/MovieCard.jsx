@@ -22,12 +22,9 @@ const MovieCard = ({
     localStorage.setItem('movieId', movieId);
     switch (type) {
       case 'edit':
-        console.log('Abriendo Edit');
         return setIsVisibleEdit(!isVisibleEdit);
-        break;
       case 'view':
         return setIsVisibleView(!isVisibleView);
-        break;
       default:
         return null;
     }

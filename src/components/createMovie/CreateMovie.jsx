@@ -5,6 +5,9 @@ import './createMovie.css';
 import Global from '../../Global';
 
 const CreateMovie = () => {
+  // Card
+  const [isNew, setIsNew] = useState(false);
+  const [movieId, setMovieId] = useState(localStorage.getItem('movieId'));
   // Formulario
   const [error, setError] = useState(false);
   const [name, setName] = useState('');
@@ -17,11 +20,35 @@ const CreateMovie = () => {
   const [toAddActors, setToAddActors] = useState([]);
   const [toRemoveActors, setToRemoveActors] = useState([]);
 
+  useEffect(() => {
+    if (movieId) {
+      setIsNew(false);
+      axios
+        .get(`${Global.url}/api/movie/${movieId}`)
+        .then((res) => {
+          const movie = res.data.data[0];
+          setName(movie.movie_name);
+          setDuration(movie.movie_duration);
+          setGenre(movie.movie_genre);
+          setSynopsis(movie.movie_synopsis);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setIsNew(true);
+    }
+    return () => {
+      localStorage.removeItem('movieId');
+    };
+  }, []);
+
   const handleForm = (e) => {
     e.preventDefault();
     setError(false);
     if (name && duration && genre != '' && synopsis) {
       const movie = {
+        movieId,
         movieName: name,
         movieDuration: duration,
         movieGenre: genre,
@@ -116,7 +143,7 @@ const CreateMovie = () => {
 
   return (
     <div>
-      <h2>Nueva Película</h2>
+      <h2>{isNew ? 'Nueva Película' : 'Editar Película'}</h2>
       <form>
         <div>
           <label htmlFor="name">Nombre:</label>
@@ -145,6 +172,7 @@ const CreateMovie = () => {
           <select
             id="genre"
             name="genre"
+            value={genre}
             onChange={(e) => setGenre(e.target.value)}
           >
             <option value="" defaultValue>
