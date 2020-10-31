@@ -1,0 +1,32 @@
+.actor-card {
+  position: relative;
+  overflow: hidden;
+  height: 300px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.6);
+  border-radius: 45px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  transition: all 0.1s ease-in;
+}
+
+.actor-card__body {
+  padding: 0 0 20px 30px;
+}
+
+.actor-card__name {
+  color: var(--baseColor);
+  font-size: 28px;
+}
+
+.actor-car__age {
+  color: var(--lightGray);
+  font-size: 22px;
+}
+
+.actor-card:hover {
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.3);
+}

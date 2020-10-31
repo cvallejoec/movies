@@ -45,20 +45,22 @@ const Actor = () => {
           Crear Actor
         </button>
       </div>
-      {loading ? (
-        <h2>Loading...</h2>
-      ) : !actors.length ? (
-        <h2>Aún no tienes actores registrados</h2>
-      ) : (
-        actors.map((actor) => (
-          <ActorCard
-            key={actor.actor_id}
-            actorName={actor.actor_name}
-            actorAge={actor.actor_age}
-            actorImg={actor.actor_img}
-          />
-        ))
-      )}
+      <div className="global__grid">
+        {loading ? (
+          <h2>Loading...</h2>
+        ) : !actors.length ? (
+          <h2>Aún no tienes actores registrados</h2>
+        ) : (
+          actors.map((actor) => (
+            <ActorCard
+              key={actor.actor_id}
+              actorName={actor.actor_name}
+              actorAge={actor.actor_age}
+              actorImg={actor.actor_img}
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 };
