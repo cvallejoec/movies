@@ -53,6 +53,7 @@ const Actor = () => {
         ) : (
           actors.map((actor) => (
             <ActorCard
+              loadData={loadData}
               key={actor.actor_id}
               actorId={actor.actor_id}
               actorName={actor.actor_name}

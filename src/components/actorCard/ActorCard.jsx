@@ -6,7 +6,7 @@ import CreateActor from '../createActor/CreateActor.jsx';
 import { IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-const ActorCard = ({ actorId, actorName, actorAge, actorImg }) => {
+const ActorCard = ({ loadData, actorId, actorName, actorAge, actorImg }) => {
   const [isVisibleEdit, setIsVisibleEdit] = useState(false);
 
   const toggleModal = () => {
@@ -22,7 +22,7 @@ const ActorCard = ({ actorId, actorName, actorAge, actorImg }) => {
     >
       {isVisibleEdit && (
         <Modal isVisible={isVisibleEdit} setIsVisible={setIsVisibleEdit}>
-          <CreateActor />
+          <CreateActor setIsVisible={setIsVisibleEdit} loadData={loadData} />
         </Modal>
       )}
       {/* <div className="actor-card__icon"> */}

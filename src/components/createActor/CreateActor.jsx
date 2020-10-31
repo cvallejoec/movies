@@ -26,7 +26,6 @@ const CreateActor = ({ setIsVisible, loadData }) => {
       axios
         .get(`${Global.url}/api/actor/${actorId}`)
         .then((res) => {
-          // console.log(res.data.data[0]);
           const actor = res.data.data[0];
           setName(actor.actor_name);
           setAge(actor.actor_age);
@@ -39,10 +38,13 @@ const CreateActor = ({ setIsVisible, loadData }) => {
   };
 
   const submitForm = (e) => {
-    console.log(e);
     e.preventDefault();
     setError(false);
-    handleUpload();
+    if (image) {
+      handleUploadImage();
+    } else {
+      handleForm(url);
+    }
   };
 
   const handleChange = (e) => {
@@ -51,7 +53,7 @@ const CreateActor = ({ setIsVisible, loadData }) => {
     }
   };
 
-  const handleUpload = () => {
+  const handleUploadImage = () => {
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on(
       'state_changed',
@@ -85,7 +87,6 @@ const CreateActor = ({ setIsVisible, loadData }) => {
       axios
         .post(Global.url + '/api/actor', actor)
         .then((res) => {
-          console.log(res);
           closeModal();
         })
         .catch((err) => {
