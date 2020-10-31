@@ -1,0 +1,7 @@
+.create-movies {
+}
+
+.create-movie__actors p {
+  /* color: var(--text) !important; */
+  color: black;
+}

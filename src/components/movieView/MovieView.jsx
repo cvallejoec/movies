@@ -42,7 +42,7 @@ const MovieView = () => {
           <div className="movie-view__actors">
             {actors.length > 0 ? (
               actors.map((actor) => (
-                <div className="movie-view__actor">
+                <div key={actor.actor_id} className="movie-view__actor">
                   <p>{actor.actor_name}</p>
                   <p>{actor.actor_age}</p>
                 </div>

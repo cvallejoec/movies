@@ -31,6 +31,17 @@ const CreateMovie = () => {
           setDuration(movie.movie_duration);
           setGenre(movie.movie_genre);
           setSynopsis(movie.movie_synopsis);
+          return axios.get(`${Global.url}/api/actor/movie/${movieId}`);
+        })
+        .then((res) => {
+          const actors = res.data.data;
+          actors.map((actor) => {
+            const newActor = {
+              actorId: actor.actor_id,
+              actorName: actor.actor_name,
+            };
+            return setSelectedActors((prevState) => [...prevState, newActor]);
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -58,13 +69,22 @@ const CreateMovie = () => {
       axios
         .post(Global.url + '/api/movie', movie)
         .then((res) => {
-          return res.data.data.insertId;
+          setMovieId(res.data.data.insertId);
         })
-        .then((movieId) => {
+        .then(() => {
           toAddActors.map((toAddActor) => {
             return axios.post(Global.url + '/api/movie/link', {
               movieId,
               actorId: toAddActor.actorId,
+            });
+          });
+          return movieId;
+        })
+        .then(() => {
+          toRemoveActors.map((toRemoveActor) => {
+            return axios.post(Global.url + '/api/movie/unLink', {
+              movieId,
+              actorId: toRemoveActor[0].actorId,
             });
           });
         })
@@ -84,8 +104,8 @@ const CreateMovie = () => {
     setGenre('');
     setSynopsis('');
     setSelectedActors([]);
-    setToAddActors([]);
-    setToRemoveActors([]);
+    // setToAddActors([]);
+    // setToRemoveActors([]);
   };
 
   useEffect(() => {
@@ -131,18 +151,22 @@ const CreateMovie = () => {
 
   const removeActor = (e) => {
     const actorName = e.target.innerHTML;
+    const removedActor = selectedActors.filter(
+      (selectedActor) => selectedActor.actorName === actorName
+    );
+    setToRemoveActors([...toRemoveActors, removedActor]);
+
     const newActors = selectedActors.filter(
       (selectedActor) => selectedActor.actorName !== actorName
     );
     setSelectedActors(newActors);
-    const newActorsToRemove = toRemoveActors.filter(
-      (selectedActor) => selectedActor.actorName !== actorName
-    );
-    setToRemoveActors(newActorsToRemove);
+    // const newActorsToRemove = toRemoveActors.filter(
+    //   (selectedActor) => selectedActor.actorName !== actorName
+    // );
   };
 
   return (
-    <div>
+    <div className="create-movie">
       <h2>{isNew ? 'Nueva Película' : 'Editar Película'}</h2>
       <form>
         <div>
@@ -200,7 +224,7 @@ const CreateMovie = () => {
             <option value="">Escoge un actor</option>
             {options && options}
           </select>
-          <div>
+          <div className="create-movie__actors">
             {selectedActors &&
               selectedActors.length > 0 &&
               selectedActors.map((selectedActor) => (
