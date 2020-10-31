@@ -4,7 +4,7 @@ import './createActor.css';
 
 import Global from '../../Global';
 
-const CreateActor = () => {
+const CreateActor = ({ setIsVisible, loadData }) => {
   const [error, setError] = useState(false);
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
@@ -24,6 +24,7 @@ const CreateActor = () => {
         .post(Global.url + '/api/actor', actor)
         .then((res) => {
           console.log(res);
+          closeModal();
         })
         .catch((err) => {
           console.log(err);
@@ -38,6 +39,11 @@ const CreateActor = () => {
   const cleanForm = () => {
     setName('');
     setAge('');
+  };
+
+  const closeModal = () => {
+    loadData();
+    setIsVisible(false);
   };
 
   return (

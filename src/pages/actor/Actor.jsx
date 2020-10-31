@@ -4,12 +4,19 @@ import './actor.css';
 
 import Global from '../../Global';
 import ActorCard from '../../components/actorCard/ActorCard';
+import Modal from '../../components/modal/Modal.jsx';
+import CreateActor from '../../components/createActor/CreateActor.jsx';
 
 const Actor = () => {
+  const [isVisible, setIsVisible] = useState(false);
   const [actors, setActors] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = () => {
     setLoading(true);
     axios
       .get(Global.url + '/api/actor')
@@ -21,11 +28,23 @@ const Actor = () => {
         setLoading(false);
         console.log(err);
       });
-  }, []);
+  };
+
+  const toggleModal = () => {
+    setIsVisible(!isVisible);
+  };
 
   return (
     <div className="global__wrapper">
-      <h2 className="global__title">Actores</h2>
+      <Modal isVisible={isVisible} setIsVisible={setIsVisible}>
+        <CreateActor setIsVisible={setIsVisible} loadData={loadData} />
+      </Modal>
+      <div className="global__center--vertical movie__header">
+        <h2 className="global__title">Actores</h2>
+        <button className="global__button" onClick={toggleModal}>
+          Crear Actor
+        </button>
+      </div>
       {loading ? (
         <h2>Loading...</h2>
       ) : !actors.length ? (
