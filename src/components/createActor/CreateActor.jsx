@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { storage } from '../../firebase/index';
 import axios from 'axios';
 import './createActor.css';
 
@@ -8,16 +9,50 @@ const CreateActor = ({ setIsVisible, loadData }) => {
   const [error, setError] = useState(false);
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState('');
 
-  const handleForm = (e) => {
+  const submitForm = (e) => {
+    console.log(e);
     e.preventDefault();
     setError(false);
-    if (name && age) {
+    handleUpload();
+  };
+
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = () => {
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+        setError(error);
+      },
+      () => {
+        storage
+          .ref('images')
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            setUrl(url);
+            handleForm(url);
+          });
+      }
+    );
+  };
+
+  const handleForm = (url) => {
+    if (name && age && url) {
       const actor = {
         actorName: name,
         actorAge: age,
-        actorImg:
-          'https://is2-ssl.mzstatic.com/image/thumb/Purple124/v4/fc/79/af/fc79af8a-f8a3-9484-4b12-d1609da1413e/source/512x512bb.jpg',
+        actorImg: url,
       };
 
       axios
@@ -70,7 +105,12 @@ const CreateActor = ({ setIsVisible, loadData }) => {
             value={age}
           />
         </div>
-        <button type="submit" onClick={(e) => handleForm(e)}>
+        <div>
+          <label htmlFor="image">Foto:</label>
+          <input type="file" onChange={handleChange} />
+          {/* {url && <img src={url} alt="actor-image" width="100" />} */}
+        </div>
+        <button type="submit" onClick={(e) => submitForm(e)}>
           Guardar
         </button>
       </form>
