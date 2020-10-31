@@ -1,0 +1,29 @@
+.movie-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.movie-view__duration {
+  color: var(--baseText) !important;
+}
+
+.movie-view__body {
+  width: 100%;
+}
+
+.movie-view__body h3,
+.movie-view__body p {
+  text-align: left;
+  color: var(--baseText);
+}
+
+.movie-view__actors {
+  width: 100%;
+}
+
+.movie-view__actor {
+  display: flex;
+  justify-content: space-between;
+}

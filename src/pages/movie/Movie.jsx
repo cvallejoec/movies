@@ -52,6 +52,7 @@ const Movie = () => {
           movies.map((movie) => (
             <MovieCard
               key={movie.movie_id}
+              movieId={movie.movie_id}
               movieName={movie.movie_name}
               movieDuration={movie.movie_duration}
               movieGenre={movie.movie_genre}

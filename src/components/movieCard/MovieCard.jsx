@@ -1,24 +1,50 @@
 import React, { useState } from 'react';
 import './movieCard.css';
 
-import CreateMovie from '../createMovie/CreateMovie.jsx';
 import { IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InfoIcon from '@material-ui/icons/Info';
-// import Modal from '../modal/Modal.jsx';
+import MovieView from '../movieView/MovieView.jsx';
+import CreateMovie from '../createMovie/CreateMovie.jsx';
+import Modal from '../modal/Modal.jsx';
 
-const MovieCard = ({ movieName, movieDuration, movieGenre, movieSynopsis }) => {
-  const [isVisible, setIsVisible] = useState(false);
+const MovieCard = ({
+  movieId,
+  movieName,
+  movieDuration,
+  movieGenre,
+  movieSynopsis,
+}) => {
+  const [isVisibleView, setIsVisibleView] = useState(false);
+  const [isVisibleEdit, setIsVisibleEdit] = useState(false);
 
-  const toggleModal = () => {
-    setIsVisible(!isVisible);
+  const toggleModal = (type) => {
+    localStorage.setItem('movieId', movieId);
+    switch (type) {
+      case 'edit':
+        console.log('Abriendo Edit');
+        return setIsVisibleEdit(!isVisibleEdit);
+        break;
+      case 'view':
+        return setIsVisibleView(!isVisibleView);
+        break;
+      default:
+        return null;
+    }
   };
 
   return (
     <div className="movie-card">
-      {/* <Modal isVisible={isVisible} setIsVisible={setIsVisible}>
-        <CreateMovie />
-      </Modal> */}
+      {isVisibleEdit && (
+        <Modal isVisible={isVisibleEdit} setIsVisible={setIsVisibleEdit}>
+          <CreateMovie />
+        </Modal>
+      )}
+      {isVisibleView && (
+        <Modal isVisible={isVisibleView} setIsVisible={setIsVisibleView}>
+          <MovieView />
+        </Modal>
+      )}
       <h3 className="movie-card__title">{movieName}</h3>
       <div className="movie-card__wrapper">
         <div className="movie-card__description">
@@ -36,14 +62,14 @@ const MovieCard = ({ movieName, movieDuration, movieGenre, movieSynopsis }) => {
           </p>
         </div>
         <div className="movie-card__buttons">
-          <div onClick={() => console.log('Si')}>
+          <div onClick={() => toggleModal('edit')}>
             <IconButton>
               <MoreVertIcon
                 style={{ fill: 'var(--shockTwo)', fontSize: 50, zIndex: 1 }}
               />
             </IconButton>
           </div>
-          <div onClick={toggleModal}>
+          <div onClick={() => toggleModal('view')}>
             <IconButton>
               <InfoIcon
                 style={{ fill: 'var(--shockTwo)', fontSize: 40, zIndex: 1 }}

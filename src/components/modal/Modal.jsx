@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './modal.css';
 
 import { IconButton } from '@material-ui/core';
