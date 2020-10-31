@@ -164,6 +164,14 @@ const CreateMovie = () => {
     setSelectedActors(newActors);
   };
 
+  const deleteMovie = (e) => {
+    e.preventDefault();
+    axios
+      .delete(`${Global.url}/api/movie/${movieId}`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="create-movie">
       <h2>{isNew ? 'Nueva Película' : 'Editar Película'}</h2>
@@ -236,6 +244,11 @@ const CreateMovie = () => {
         <button type="submit" onClick={(e) => handleForm(e)}>
           Guardar
         </button>
+        {!isNew && (
+          <button type="submit" onClick={(e) => deleteMovie(e)}>
+            Borrar
+          </button>
+        )}
       </form>
       {error ? <h2>Debe llenar todos los campos</h2> : null}
     </div>
