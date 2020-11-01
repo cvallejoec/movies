@@ -5,10 +5,14 @@ import './scraper.css';
 import Global from '../../Global';
 import ScrapedMovie from '../scrapedMovie/ScrapedMovie.jsx';
 import Charts from '../charts/Charts.jsx';
+import Modal from '../modal/Modal.jsx';
+import { IconButton } from '@material-ui/core';
+import InfoIcon from '@material-ui/icons/Info';
 
 const Scraper = () => {
   const [movies, setMovies] = useState([]);
   const [dataset, setDataset] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     callSpider();
@@ -16,7 +20,8 @@ const Scraper = () => {
 
   useEffect(() => {
     if (movies.length > 0) {
-      setDataset(generateDataset(movies));
+      const movies_copy = movies;
+      setDataset(generateDataset(movies_copy));
     }
   }, [movies]);
 
@@ -31,10 +36,46 @@ const Scraper = () => {
       });
   };
 
+  const toggleModal = () => {
+    setIsVisible(!isVisible);
+  };
+
   return (
     <div className="scraper">
+      {isVisible && (
+        <Modal isVisible={isVisible} setIsVisible={setIsVisible}>
+          <div>
+            <h2>Información</h2>
+            <div className="scraper-info__body">
+              <p>
+                Utilizando técnicas de Web Scraping he extraido las top 250
+                películas de la página oficial de{' '}
+                <a
+                  href="https://www.imdb.com/chart/top/"
+                  className="scaper-info__link"
+                >
+                  IMDb.
+                </a>{' '}
+                Posteriormente he analizado los resultados a través de un
+                gráfico y he respondido a la pregunta: <br />
+              </p>
+              <p>
+                ¿Influye la antiguedad de la película en tener un mejor
+                ranking/calificación?
+              </p>
+            </div>
+          </div>
+        </Modal>
+      )}
       <div className="global__center--vertical movie__header">
         <h2 className="global__title">Scraper</h2>
+        <div onClick={() => toggleModal()}>
+          <IconButton>
+            <InfoIcon
+              style={{ fill: 'var(--shockTwo)', fontSize: 50, zIndex: 1 }}
+            />
+          </IconButton>
+        </div>
       </div>
       <div className="global__grid">
         {movies &&
@@ -56,15 +97,17 @@ const generateDataset = (data) => {
   const emptyDataset = setSteps(lowest_year, highest_year, steps);
   const filledDataset = fillDataset(data, emptyDataset);
   const dataset = recalculateDataset(filledDataset, data.length);
+  // return data_sort;
   return dataset;
 };
 
 const sortData = (data) => {
-  return data.sort(function (a, b) {
+  const data_sorted = data.sort(function (a, b) {
     if (a.anios > b.anios) return 1;
     if (a.anios < b.anios) return -1;
     return 0;
   });
+  return data_sorted;
 };
 
 const setSteps = (lowest_year, highest_year, steps) => {
