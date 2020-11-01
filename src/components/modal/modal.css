@@ -17,7 +17,7 @@
 }
 
 .modal__container {
-  width: 500px;
+  min-width: 256px;
   background-color: white;
   padding: 32px;
   border-radius: 8px;
@@ -67,5 +67,17 @@
   }
   100% {
     transform: translateY(-3000px);
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .modal__container {
+    min-width: 400px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .modal__container {
+    min-width: 500px;
   }
 }

@@ -1,7 +1,39 @@
-.create-movies {
+.create-movie {
+}
+
+.create-movie__actors {
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .create-movie__actors p {
   /* color: var(--text) !important; */
   color: black;
+}
+
+.create-movie__actors-container {
+  background-color: var(--baseColor);
+  padding: 5px 10px;
+  border-radius: 22px;
+}
+
+.create-movie__actor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 32px;
+  margin: 5px 10px;
+  background-color: var(--shockTwo);
+  padding: 10px 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.create-movie__actor p {
+  font-size: 14px;
+}
+
+.create-movie__remove {
+  margin-left: 4px;
 }

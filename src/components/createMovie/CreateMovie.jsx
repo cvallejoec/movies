@@ -3,6 +3,8 @@ import axios from 'axios';
 import './createMovie.css';
 
 import Global from '../../Global';
+import { IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
 const CreateMovie = ({ setIsVisible, loadData }) => {
   // Card
@@ -154,6 +156,7 @@ const CreateMovie = ({ setIsVisible, loadData }) => {
 
   const removeActor = (e) => {
     const actorName = e.target.innerHTML;
+    console.log(actorName);
     const removedActor = selectedActors.filter(
       (selectedActor) => selectedActor.actorName === actorName
     );
@@ -181,31 +184,39 @@ const CreateMovie = ({ setIsVisible, loadData }) => {
   return (
     <div className="create-movie">
       <h2>{isNew ? 'Nueva Película' : 'Editar Película'}</h2>
-      <form>
-        <div>
-          <label htmlFor="name">Nombre:</label>
+      <form className="global__form">
+        <div className="global__form-container">
+          <label htmlFor="name" className="form__label">
+            Nombre:
+          </label>
           <input
             type="text"
             name="name"
             id="name"
+            className="form__input"
             onChange={(e) => setName(e.target.value)}
             value={name}
             placeholder="John Doe"
           />
         </div>
-        <div>
-          <label htmlFor="duration">Duración (minutos): </label>
+
+        <div className="global__form-container">
+          <label htmlFor="duration" className="form__label">
+            Duración (minutos):{' '}
+          </label>
           <input
             type="number"
             name="duration"
             id="duration"
+            className="form__input"
             onChange={(e) => setDuration(e.target.value)}
             value={duration}
             placeholder="162"
           />
         </div>
-        <div>
-          <label>Género:</label>
+
+        <div className="global__form-container">
+          <label className="form__label">Género:</label>
           <select
             id="genre"
             name="genre"
@@ -221,18 +232,23 @@ const CreateMovie = ({ setIsVisible, loadData }) => {
             <option value="Terror">Terror</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="synopsis">Sinópsis:</label>
+
+        <div className="global__form-container">
+          <label htmlFor="synopsis" className="form__label">
+            Sinópsis:
+          </label>
           <textarea
             type="text"
             name="synopsis"
             id="synopsis"
+            className="form__input"
             onChange={(e) => setSynopsis(e.target.value)}
             value={synopsis}
           />
         </div>
-        <div>
-          <label>Actores:</label>
+
+        <div className="global__form-container create-movie__actors-container">
+          <label className="form__label">Actores:</label>
           <select onChange={(e) => handleActor(e)}>
             <option value="">Escoge un actor</option>
             {options && options}
@@ -241,20 +257,35 @@ const CreateMovie = ({ setIsVisible, loadData }) => {
             {selectedActors &&
               selectedActors.length > 0 &&
               selectedActors.map((selectedActor) => (
-                <p key={selectedActor.actorId} onClick={(e) => removeActor(e)}>
-                  {selectedActor.actorName}
-                </p>
+                <div
+                  key={selectedActor.actorId}
+                  onClick={(e) => removeActor(e)}
+                  className="create-movie__actor"
+                >
+                  <p>{selectedActor.actorName}</p>
+                </div>
               ))}
           </div>
         </div>
-        <button type="submit" onClick={(e) => handleForm(e)}>
-          Guardar
-        </button>
-        {!isNew && (
-          <button type="submit" onClick={(e) => deleteMovie(e)}>
-            Borrar
+
+        <div className="form__buttons">
+          <button
+            type="submit"
+            onClick={(e) => handleForm(e)}
+            className="global__button--negative"
+          >
+            Guardar
           </button>
-        )}
+          {!isNew && (
+            <button
+              type="submit"
+              onClick={(e) => deleteMovie(e)}
+              className="global__button--low"
+            >
+              Borrar
+            </button>
+          )}
+        </div>
       </form>
       {error ? <h2>Debe llenar todos los campos</h2> : null}
     </div>

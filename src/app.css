@@ -40,10 +40,64 @@
   transition: all 0.1s ease-in;
 }
 
+.global__button--negative {
+  border: none;
+  padding: 10px 30px;
+  margin: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition: all 0.1s ease-in;
+  background-color: var(--baseBackground);
+  color: var(--baseColor);
+}
+
 .global__button:hover {
   background-color: transparent;
   color: var(--baseColor);
   border: 1px solid var(--baseColor);
+}
+
+.global__button--negative:hover {
+  background-color: transparent;
+  color: var(--baseBackground);
+  border: 1px solid var(--baseBackground);
+}
+
+.global__button--low {
+  border: none;
+  background: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.global__form {
+  padding: 20px 0;
+}
+
+.global__form-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+.form__label {
+  align-self: flex-start;
+  margin: 5px 0;
+}
+
+.form__input {
+  border: none;
+  background-color: var(--lightGray);
+  height: 22px;
+  border-radius: 8px;
+  padding: 10px 20px;
+  resize: vertical;
+}
+
+.form__buttons {
+  margin: 10px 0;
 }
 
 @media screen and (min-width: 480px) {

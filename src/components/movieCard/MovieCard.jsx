@@ -46,15 +46,15 @@ const MovieCard = ({
       <h3 className="movie-card__title">{movieName}</h3>
       <div className="movie-card__wrapper">
         <div className="movie-card__description">
-          <p className="movie-card__duration">
+          <p className="movie-card__duration movie-card__label">
             <span className="movie-card__subtitle">Duración:</span> <br />
             {movieDuration} minutos
           </p>
-          <p className="movie-card__genre">
+          <p className="movie-card__genre  movie-card__label">
             <span className="movie-card__subtitle">Género:</span> <br />
             {movieGenre}
           </p>
-          <p className="movie-card__synopsis">
+          <p className="movie-card__synopsis  movie-card__label">
             <span className="movie-card__subtitle">Sinópsis:</span> <br />{' '}
             {movieSynopsis}
           </p>

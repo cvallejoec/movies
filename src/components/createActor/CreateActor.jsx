@@ -112,7 +112,7 @@ const CreateActor = ({ setIsVisible, loadData }) => {
   return (
     <div className="create-actor">
       {!actorId ? <h2>Nuevo Actor</h2> : <h2>Editar Actor</h2>}
-      <form>
+      <form className="global__form">
         <div>
           <label htmlFor="name">Nombre:</label>
           <input

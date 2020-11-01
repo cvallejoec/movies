@@ -23,6 +23,9 @@
 }
 
 .movie-card p {
+}
+
+.movie-card__label {
   color: var(--lightGray);
   font-weight: 400;
   margin: 10px 0;
