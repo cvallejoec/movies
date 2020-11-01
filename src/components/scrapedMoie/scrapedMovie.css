@@ -1,0 +1,11 @@
+.scraped-movie {
+}
+
+.scraped-movie__info {
+  display: flex;
+  align-items: center;
+}
+
+.scraped-movie__info p {
+  margin-left: 5px;
+}

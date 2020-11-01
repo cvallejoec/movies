@@ -25,11 +25,9 @@ const ActorCard = ({ loadData, actorId, actorName, actorAge, actorImg }) => {
           <CreateActor setIsVisible={setIsVisibleEdit} loadData={loadData} />
         </Modal>
       )}
-      {/* <div className="actor-card__icon"> */}
       <IconButton onClick={() => toggleModal()} className="actor-card__icon">
         <MoreVertIcon style={{ fill: 'var(--lightGray)', fontSize: 40 }} />
       </IconButton>
-      {/* </div> */}
       <div className="actor-card__body">
         <h2 className="actor-card__name">{actorName}</h2>
         <p className="actor-car__age">{actorAge} años</p>
