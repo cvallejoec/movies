@@ -1,2 +1,8 @@
 .create-actor {
 }
+
+.create-actor__preview {
+  align-self: center;
+  width: 200px;
+  margin: 30px 0;
+}

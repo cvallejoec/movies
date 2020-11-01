@@ -12,6 +12,9 @@ const CreateActor = ({ setIsVisible, loadData }) => {
   const [age, setAge] = useState('');
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState('');
+  // Image Preview
+  const [selectedFile, setSelectedFile] = useState();
+  const [preview, setPreview] = useState();
 
   useEffect(() => {
     getActor();
@@ -20,6 +23,19 @@ const CreateActor = ({ setIsVisible, loadData }) => {
       localStorage.removeItem('actorId');
     };
   }, []);
+
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(url);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
 
   const getActor = () => {
     if (actorId) {
@@ -30,6 +46,7 @@ const CreateActor = ({ setIsVisible, loadData }) => {
           setName(actor.actor_name);
           setAge(actor.actor_age);
           setUrl(actor.actor_img);
+          setPreview(actor.actor_img);
         })
         .catch((err) => {
           console.log(err);
@@ -50,6 +67,10 @@ const CreateActor = ({ setIsVisible, loadData }) => {
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
+      setSelectedFile(e.target.files[0]);
+    } else {
+      setSelectedFile(undefined);
+      return;
     }
   };
 
@@ -148,7 +169,14 @@ const CreateActor = ({ setIsVisible, loadData }) => {
             Foto:
           </label>
           <input type="file" onChange={handleChange} className="form__input" />
-          {url && <img src={url} alt="actor-image" width="100" />}
+          {url && (
+            <img
+              src={preview}
+              alt="actor-image"
+              width="100"
+              className="create-actor__preview"
+            />
+          )}
         </div>
 
         <div className="form__buttons">
