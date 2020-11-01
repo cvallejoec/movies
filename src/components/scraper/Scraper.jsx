@@ -53,6 +53,7 @@ const Scraper = () => {
                 <a
                   href="https://www.imdb.com/chart/top/"
                   className="scaper-info__link"
+                  target="_blank"
                 >
                   IMDb.
                 </a>{' '}
