@@ -113,34 +113,53 @@ const CreateActor = ({ setIsVisible, loadData }) => {
     <div className="create-actor">
       {!actorId ? <h2>Nuevo Actor</h2> : <h2>Editar Actor</h2>}
       <form className="global__form">
-        <div>
-          <label htmlFor="name">Nombre:</label>
+        <div className="global__form-container">
+          <label htmlFor="name" className="form__label">
+            Nombre:
+          </label>
           <input
             type="text"
             name="name"
             id="name"
+            className="form__input"
             onChange={(e) => setName(e.target.value)}
             value={name}
+            placeholder="John Doe"
           />
         </div>
-        <div>
-          <label htmlFor="age">Edad:</label>
+
+        <div className="global__form-container">
+          <label htmlFor="age" className="form__label">
+            Edad:
+          </label>
           <input
             type="number"
             name="age"
             id="age"
+            className="form__input"
             onChange={(e) => setAge(e.target.value)}
             value={age}
+            placeholder="45"
           />
         </div>
-        <div>
-          <label htmlFor="image">Foto:</label>
-          <input type="file" onChange={handleChange} />
+
+        <div className="global__form-container">
+          <label htmlFor="image" className="form__label">
+            Foto:
+          </label>
+          <input type="file" onChange={handleChange} className="form__input" />
           {url && <img src={url} alt="actor-image" width="100" />}
         </div>
-        <button type="submit" onClick={(e) => submitForm(e)}>
-          Guardar
-        </button>
+
+        <div className="form__buttons">
+          <button
+            type="submit"
+            onClick={(e) => submitForm(e)}
+            className="global__button--negative"
+          >
+            Guardar
+          </button>
+        </div>
       </form>
       {error ? <h2>Debe llenar todos los campos</h2> : null}
     </div>
