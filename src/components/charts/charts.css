@@ -1,0 +1,13 @@
+.charts {
+  margin-top: 50px;
+}
+
+.charts__name {
+  fill: var(--shockTwo) !important;
+  font-size: 22px !important;
+}
+
+.charts__percentage {
+  fill: var(--shockOne) !important;
+  font-size: 18px !important;
+}

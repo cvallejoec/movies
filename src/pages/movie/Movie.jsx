@@ -6,7 +6,8 @@ import Global from '../../Global';
 import MovieCard from '../../components/movieCard/MovieCard.jsx';
 import CreateMovie from '../../components/createMovie/CreateMovie.jsx';
 import Modal from '../../components/modal/Modal.jsx';
-import Scraper from '../scraper/Scraper.jsx';
+import Scraper from '../../components/scraper/Scraper.jsx';
+import Charts from '../../components/charts/Charts.jsx';
 
 const Movie = () => {
   const [isVisible, setIsVisible] = useState(false);
