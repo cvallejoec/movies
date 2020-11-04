@@ -3,14 +3,13 @@ import 'firebase/storage';
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: 'AIzaSyCeva5bteTNdxvH4PWRB_lV3oZNVuoU9s4',
-  authDomain: 'superchat-b2d40.firebaseapp.com',
-  databaseURL: 'https://superchat-b2d40.firebaseio.com',
-  projectId: 'superchat-b2d40',
-  storageBucket: 'superchat-b2d40.appspot.com',
-  messagingSenderId: '665971931035',
-  appId: '1:665971931035:web:1d045499a5181fd62a533e',
-  measurementId: 'G-W5EC1HRNGW',
+  apiKey: 'AIzaSyAbuOf3EUg53JiMpm9epPt_O2Pw7LdNKJM',
+  authDomain: 'whatsapp-mern-c4fea.firebaseapp.com',
+  databaseURL: 'https://whatsapp-mern-c4fea.firebaseio.com',
+  projectId: 'whatsapp-mern-c4fea',
+  storageBucket: 'whatsapp-mern-c4fea.appspot.com',
+  messagingSenderId: '260010849098',
+  appId: '1:260010849098:web:ddf292a9a80d1e59c187b3',
 };
 firebase.initializeApp(firebaseConfig);
 
